@@ -1,58 +1,39 @@
+import { useEffect, useState } from "react";
 import "./App.css";
+import Cards from "./Components/Card/Cards";
+import Chart from "./Components/Chart/Chart";
 import Title from "./Title";
 
 function App() {
+  const [carts , setCarts] = useState([]);
 
+  const handleAddToChart = (card) =>{
+    // console.log('add',card);
+    const newCarts = [...carts ,card]
+    setCarts(newCarts)
+  }
+  console.log(carts);
 
   return (
+    
     <>
       <Title />
       <section className="container pt-20 flex w-full justify-between flex-col lg:flex lg:flex-row gap-5 max-w-[1400px] mx-auto">
         <div
           id="productContainer"
-          className="pt-7 w-full lg:w-[80%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-12"
+          className="pt-7 w-full lg:w-[80%]  "
         >
-          
-           
-            
-              <div
-                key={name}
-                className="relative flex w-full h-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
-              >
-                <div className="relative mx-4 -mt-6 h-52 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
-                  <img
-                    src=''
-                    alt="img-blur-shadow"
-                    className="h-full w-full"
-                  />
-                </div>
-                <div className="p-6">
-                  <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                    Name
-                  </h5>
-
-                  <div>
-                    <span>
-                      <del>399</del>TK.
-                    </span>
-                    <span className="ml-3">299 TK.</span>
-                  </div>
-
-                  <div className="rating">rating- $Rating</div>
-                </div>
-                <div className="p-6 pt-0">
-                  <button
-                    className="select-none rounded-lg bg-gradient-to-r to-emerald-600 from-sky-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    type="button"
-                    data-ripple-light="true"
-                  >
-                    Add to cart
-                  </button>
-                </div>
-              </div>
+              <Cards handleAddToChart={handleAddToChart}></Cards>
         </div>
 
-        <div className="lg:w-[20%] w-full h-[100vh] overflow-y-auto sticky top-3">
+        {/* <div className="flex flex-col lg:w-[20%] w-full h-[100vh]">
+        <p className="text-center">Total Cart Item</p>
+          <p className="text-center p-3" id="totalPriceDisplay"></p>
+        {
+          carts.map((cart,idx) => <Chart key={idx} cart={cart}></Chart>)
+        }
+        </div> */}
+        <div className="lg:w-[20%] w-full h-[100vh]">
           <p className="text-center">Total Cart Item</p>
           <p className="text-center p-3" id="totalPriceDisplay"></p>
           <div id="cartContainer" className="cartContainer ">
@@ -63,12 +44,9 @@ function App() {
                   <th>Price</th>
                 </tr>
               </thead>
-              <tbody>
-                    <tr>
-                      <td>Name</td>
-                      <td>500</td>
-                    </tr>
-              </tbody>
+              {
+          carts.map((cart,idx) => <Chart key={idx} cart={cart}></Chart>)
+        }
             </table>
           </div>
         </div>
